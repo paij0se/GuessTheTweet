@@ -26,11 +26,13 @@ function sendAndReceive() {
       }
       try {
         let optionUserArray = [tusername, tusername2, tusername3, tusername4];
+        /*
         for (let i = 0; i < optionUserArray.length; i++) {
           if (uwu.by == optionUserArray[i]) {
             console.log(`${uwu.by} - ${optionUserArray[i]}`);
           }
         }
+        */
 
         const createWinner = function () {
           const winner = uwu.by;
@@ -55,7 +57,7 @@ function sendAndReceive() {
             buton.className = "btn btn-outline-dark btn-lg btn-block";
             buton.id = i;
             buton.style = "border: 2px solid black; border-radius: 20px;";
-            buton.innerText = optionUserArray[i];
+            buton.innerText = `@${optionUserArray[i]}`;
             buton.addEventListener("click", onClick);
           }
           /*
