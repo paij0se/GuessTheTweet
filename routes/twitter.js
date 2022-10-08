@@ -26,14 +26,26 @@ const getUserID = async (username) => {
       },
     }
   );
-  return await {
-    id: response.body.data.id,
-    username: response.body.data.username,
-  };
+  if (response.statusCode == 400) {
+    return await {
+      id: "Error, user not found, or has protected tweets.",
+      username: "Error, user not found, or has protected tweets.",
+    };
+  } else {
+    return await {
+      id: response.body.data.id,
+      username: response.body.data.username,
+    };
+  }
 };
 
 router.get("/tweets", limiter, (req, res) => {
-  const userArray = [req.query.user, req.query.user2, req.query.user3,req.query.user4];
+  const userArray = [
+    req.query.user,
+    req.query.user2,
+    req.query.user3,
+    req.query.user4,
+  ];
   console.log(userArray);
   let brandom = Math.floor(Math.random() * userArray.length);
   const randomUser = userArray[brandom];
@@ -100,7 +112,8 @@ router.get("/tweets", limiter, (req, res) => {
 
           return res.json({ tweet: RandomTweet[r].text, by: id.username }); // userID -> username
         } catch (err) {
-          throw new Error(`Request failed: ${err}`);
+          console.log(error);
+          return res.json({ tweet: "error", by: "error" }); // userID -> username
         }
       };
       getUserTweets();
