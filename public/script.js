@@ -7,16 +7,35 @@ function sendAndReceive() {
     method: "GET",
   })
     .then(function (r) {
-      return r.json();
-    })
-    .then((uwu) => {
-      // Doesen't start with "RT"
-      if (!uwu.tweet.text.startsWith("RT")) {
-        document.getElementById("res").innerHTML += `<p>${uwu.tweet.text}</p>`;
+      if (r.ok) {
+        return r.json();
       } else {
         document.getElementById(
           "res"
-        ).innerHTML += `<p>${uwu.tweet.text} (Retweeted)</p>`;
+        ).innerHTML += `<p>ratio, Too much requests</p>`;
+      }
+    })
+    .then((uwu) => {
+      // Doesen't start with "RT"
+      try {
+        if (!uwu.tweet.startsWith("RT")) {
+          document.getElementById("res").innerHTML += `<p>${uwu.tweet}</p>
+          <button type="button" class="btn btn-secondary btn-lg btn-block">${tusername}</button>
+          <br>
+          <button type="button" class="btn btn-secondary btn-lg btn-block">${tusername2}</button>
+          <br>
+          <button type="button" class="btn btn-secondary btn-lg btn-block">${tusername3}</button>
+
+          `;
+          console.log(`by: ${uwu.by}`);
+        } else {
+          document.getElementById(
+            "res"
+          ).innerHTML += `<p>${uwu.tweet} (Retweeted)</p>`;
+        }
+      } catch (error) {
+        console.log("Error", error);
+        document.getElementById("res").innerHTML += `<p>${uwu}</p>`;
       }
     });
 }
