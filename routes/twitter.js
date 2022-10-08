@@ -17,24 +17,26 @@ const limiter = rateLimit({
 // This function convert "user" -> Id
 // e.g: mondongo -> 18474748383
 const getUserID = async (username) => {
-  const response = await needle(
-    "get",
-    `https://api.twitter.com/2/users/by/username/${username}`,
-    {
-      headers: {
-        Authorization: `Bearer ${bearerToken}`,
-      },
-    }
-  );
-  if (response.statusCode == 400) {
-    return await {
-      id: "Error, user not found, or has protected tweets.",
-      username: "Error, user not found, or has protected tweets.",
-    };
-  } else {
+  try {
+    const response = await needle(
+      "get",
+      `https://api.twitter.com/2/users/by/username/${username}`,
+      {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      }
+    );
+
     return await {
       id: response.body.data.id,
       username: response.body.data.username,
+    };
+  } catch (error) {
+    console.log(error);
+    return await {
+      id: "Error, user not found, or has protected tweets.",
+      username: "Error, user not found, or has protected tweets.",
     };
   }
 };
@@ -112,8 +114,11 @@ router.get("/tweets", limiter, (req, res) => {
 
           return res.json({ tweet: RandomTweet[r].text, by: id.username }); // userID -> username
         } catch (err) {
-          console.log(error);
-          return res.json({ tweet: "error", by: "error" }); // userID -> username
+          console.log(err);
+          return res.json({
+            tweet: "Error, user not found, or has protected tweets.",
+            by: "Error, user not found, or has protected tweets.",
+          }); // userID -> username
         }
       };
       getUserTweets();
