@@ -1,5 +1,5 @@
 {
-  "name": "zemoga",
+  "name": "GuessTheTweet",
   "version": "1.0.0",
   "description": "This is a test project",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/paij0se/zemoga"
+    "url": "https://github.com/paij0se/GuessTheTweet"
   },
   "author": "Jose Luis",
   "license": "ISC",
@@ -17,8 +17,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-rate-limit": "^6.6.0",
-    "needle": "^3.1.0",
-    "twitter-api-v2": "^1.12.2"
+    "needle": "^3.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

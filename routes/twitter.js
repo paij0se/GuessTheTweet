@@ -33,7 +33,7 @@ const getUserID = async (username) => {
 };
 
 router.get("/tweets", limiter, (req, res) => {
-  const userArray = [req.query.user, req.query.user2, req.query.user3];
+  const userArray = [req.query.user, req.query.user2, req.query.user3,req.query.user4];
   console.log(userArray);
   let brandom = Math.floor(Math.random() * userArray.length);
   const randomUser = userArray[brandom];
