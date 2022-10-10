@@ -12,7 +12,7 @@ p {
 p {
   width: auto;
   padding: 30px;
-  border: 2px solid black;
+  border: 2px solid white;
   border-radius: 20px;
   margin: 0;
 }
@@ -20,4 +20,5 @@ p {
 h2 {
   color: white;
   font-family: "Cascadia Code", sans-serif;
+  font-size: 20px;
 }

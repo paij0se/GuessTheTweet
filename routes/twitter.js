@@ -112,13 +112,13 @@ router.get("/tweets", limiter, (req, res) => {
           let r = Math.floor(Math.random() * RandomTweet.length);
           console.log(RandomTweet[r].text);
 
-          return res.json({ tweet: RandomTweet[r].text, by: id.username }); // userID -> username
+          return res.json({ tweet: RandomTweet[r].text, by: id.username });
         } catch (err) {
           console.log(err);
           return res.json({
             tweet: "Error, user not found, or has protected tweets.",
             by: "Error, user not found, or has protected tweets.",
-          }); // userID -> username
+          });
         }
       };
       getUserTweets();
