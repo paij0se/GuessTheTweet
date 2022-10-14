@@ -14,7 +14,7 @@ function sendAndReceive() {
     alert("Fill all the users!");
   } else {
     fetch(
-      `http://127.0.0.1:8080/tweets/?u=${tusername}&u2=${tusername2}&u3=${tusername3}&u4=${tusername4}`,
+      `http://170.187.200.5/tweets/?u=${tusername}&u2=${tusername2}&u3=${tusername3}&u4=${tusername4}`,
       {
         method: "GET",
       }
