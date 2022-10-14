@@ -34,6 +34,14 @@ defmodule Example.Router do
     params = conn.query_params
 
     users = [params["u"], params["u2"], params["u3"], params["u4"]]
+
+    if byte_size(params["u"]) == 0 || byte_size(params["u2"]) == 0 || byte_size(params["u3"]) == 0 ||
+         byte_size(params["u4"]) == 0 do
+      conn
+      |> put_resp_content_type("application/json")
+      |> send_resp(400, Jason.encode!(["error", "Empty field"]))
+    end
+
     randomUser = users |> Enum.random()
 
     Logger.info(["Selected user:", randomUser])
