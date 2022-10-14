@@ -2,6 +2,7 @@ defmodule Example.Router do
   import Plug.Conn
   use Plug.Router
   require Logger
+  plug(CORSPlug)
 
   plug(:match)
   plug(:dispatch)
@@ -25,9 +26,6 @@ defmodule Example.Router do
   end
 
   get "/" do
-    conn = Plug.Conn.fetch_query_params(conn)
-    params = conn.query_params
-    Logger.info(params["u"])
     send_resp(conn, 200, "Pong!")
   end
 

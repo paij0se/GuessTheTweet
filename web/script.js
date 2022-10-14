@@ -6,28 +6,19 @@ function sendAndReceive() {
   let tusername3 = document.getElementById("tusername3").value;
   let tusername4 = document.getElementById("tusername4").value;
   fetch(
-    `/tweets?user=${tusername}&user2=${tusername2}&user3=${tusername3}&user4=${tusername4}`,
+    `http://127.0.0.1:8080/tweets/?u=${tusername}&u2=${tusername2}&u3=${tusername3}&u4=${tusername4}`,
     {
       method: "GET",
     }
   )
-    .then(function (r) {
-      if (r.ok) {
-        return r.json();
-      } else {
-        document.getElementById(
-          "res"
-        ).innerHTML += `<p>ratio, Too much requests</p>`;
-      }
+    .then((r) => {
+      return r.json();
     })
     .then((uwu) => {
-      if (uwu.error == "Empty username") {
-        document.getElementById("res").innerHTML += `<p>${uwu.error} </p>`;
-      }
+      let tweet = uwu[0];
       try {
         let optionUserArray = [tusername, tusername2, tusername3, tusername4];
-
-        const winner = uwu.by;
+        const winner = uwu[1];
         let winningButton;
         const onClick = function () {
           winningButton = winner;
@@ -53,8 +44,7 @@ function sendAndReceive() {
         }
         // Display the tweet
         document.getElementById("res").innerHTML += `
-          <h2>${uwu.tweet}</h2>`;
-          
+          <h2>${tweet}</h2>`;
       } catch (error) {
         console.log("Error", error);
         document.getElementById("res").innerHTML += `<p>${uwu}</p>`;
