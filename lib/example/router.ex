@@ -2,6 +2,7 @@ defmodule Example.Router do
   import Plug.Conn
   use Plug.Router
   require Logger
+  use Plug.ErrorHandler
   plug(CORSPlug)
 
   plug(:match)
@@ -45,13 +46,13 @@ defmodule Example.Router do
     randomUser = users |> Enum.random()
 
     Logger.info(["Selected user:", randomUser])
-    # This pipes are cool asf
     userforRequest = getUserId(randomUser).body |> Jason.decode!()
+    # Handle if the use does not exist
     userId = userforRequest["data"]["id"]
     userName = userforRequest["data"]["username"]
-
     request = Example.Router.getTweet(userId).body |> Jason.decode!()
     Logger.info(["UserName:", userName, " ", "UserID:", userId])
+    # Get a random tweet
     a = request["data"] |> Enum.random()
     tweet = a["text"]
     Logger.info(tweet)
@@ -59,6 +60,13 @@ defmodule Example.Router do
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(200, Jason.encode!([tweet, userName]))
+  end
+
+  @impl Plug.ErrorHandler
+  def handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(404, Jason.encode!(["Error", "Something went wrong!"]))
   end
 
   match _ do

@@ -27,7 +27,6 @@ defmodule Example.MixProject do
       {:httpoison, "~> 1.8"},
       {:jason, "~> 1.1"},
       {:json, "~> 1.4"},
-      {:extwitter, "~> 0.12"},
       {:cors_plug, "~> 3.0"}
     ]
   end
