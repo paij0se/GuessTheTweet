@@ -17,6 +17,15 @@ defmodule Example.Router do
     )
   end
 
+  def getUserpfp(username) do
+    HTTPoison.get!(
+      "https://api.twitter.com/2/users/by/username/#{username}?user.fields=profile_image_url",
+      [
+        {"Authorization", "Bearer " <> System.get_env("TOKEN")}
+      ]
+    )
+  end
+
   def getTweet(id) do
     HTTPoison.get!(
       "https://api.twitter.com/2/users/#{id}/tweets?max_results=100",
@@ -56,17 +65,33 @@ defmodule Example.Router do
     a = request["data"] |> Enum.random()
     tweet = a["text"]
     Logger.info(tweet)
+    userpfp = fn user -> getUserpfp(user).body |> Jason.decode!() end
+
+    users_profile_picture = [
+      userpfp.(params["u"])["data"]["profile_image_url"],
+      userpfp.(params["u2"])["data"]["profile_image_url"],
+      userpfp.(params["u3"])["data"]["profile_image_url"],
+      userpfp.(params["u4"])["data"]["profile_image_url"]
+    ]
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Jason.encode!([tweet, userName]))
+    |> send_resp(200, Jason.encode!([tweet, userName, users_profile_picture]))
   end
 
   @impl Plug.ErrorHandler
   def handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(404, Jason.encode!(["Error", "Something went wrong!"]))
+    |> send_resp(
+      404,
+      Jason.encode!([
+        "Something went wrong!",
+        "Something went wrong!",
+        "Something went wrong!",
+        "Something went wrong!"
+      ])
+    )
   end
 
   match _ do

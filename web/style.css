@@ -22,3 +22,7 @@ h2 {
   font-family: "Cascadia Code", sans-serif;
   font-size: 20px;
 }
+
+img {
+  border-radius: 50%;
+}
