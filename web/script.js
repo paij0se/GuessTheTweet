@@ -1,5 +1,4 @@
 "use strict";
-
 function sendAndReceive() {
   let tusername = document.getElementById("tusername").value;
   let tusername2 = document.getElementById("tusername2").value;
@@ -13,6 +12,11 @@ function sendAndReceive() {
   ) {
     alert("Fill all the users!");
   } else {
+    let optionUserArray = [tusername, tusername2, tusername3, tusername4];
+    // Save the input to local storage
+    for (let i = 0; i < optionUserArray.length; i++) {
+      localStorage.setItem(`user${i}`, optionUserArray[i]);
+    }
     fetch(
       `https://guessthetweet.elpanajose.repl.co/tweets/?u=${tusername}&u2=${tusername2}&u3=${tusername3}&u4=${tusername4}`,
       {
@@ -24,9 +28,7 @@ function sendAndReceive() {
       })
       .then((uwu) => {
         let tweet = uwu[0];
-        console.log(uwu[2][0]);
         try {
-          let optionUserArray = [tusername, tusername2, tusername3, tusername4];
           const winner = uwu[1];
           let winningButton;
           const onClick = function () {
@@ -51,7 +53,6 @@ function sendAndReceive() {
             buton.addEventListener("click", onClick);
           }
           for (let i = 0; i < uwu[2].length; i++) {
-            console.log(uwu[2][i]);
             document.getElementById(
               "pfp"
             ).innerHTML += `<img src="${uwu[2][i]}">`;
@@ -60,7 +61,6 @@ function sendAndReceive() {
           document.getElementById("res").innerHTML += `
           <h2>${tweet}</h2>`;
         } catch (error) {
-          console.log("Error", error);
           document.getElementById("res").innerHTML += `<p>${uwu}</p>`;
         }
       });
