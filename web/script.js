@@ -27,9 +27,11 @@ function sendAndReceive() {
         return r.json();
       })
       .then((uwu) => {
-        let tweet = uwu[0];
+        let tweet = uwu[0][0];
+        let userWinnerPfp = uwu[0][2];
+        console.log(uwu);
         try {
-          const winner = uwu[1];
+          const winner = uwu[0][1];
           let winningButton;
           const onClick = function () {
             winningButton = winner;
@@ -40,6 +42,9 @@ function sendAndReceive() {
               buton.className = "btn btn-success btn-lg btn-block";
               buton.style = "border: 2px solid black; border-radius: 20px;";
               buton.innerText = winner;
+              document.getElementById("usert").innerHTML = `@${uwu[0][1]}`;
+              document.getElementById("pfpw").src = userWinnerPfp;
+              document.getElementById("namet").innerHTML = uwu[0][3];
             }
           };
           for (let i = 0; i < optionUserArray.length; ++i) {
@@ -52,16 +57,16 @@ function sendAndReceive() {
             buton.innerText = `@${optionUserArray[i]}`;
             buton.addEventListener("click", onClick);
           }
-          for (let i = 0; i < uwu[2].length; i++) {
-            document.getElementById(
-              "pfp"
-            ).innerHTML += `<img src="${uwu[2][i]}">`;
+          for (let i = 0; i < uwu[1].length; i++) {
+            document.getElementById("pfp").innerHTML += `
+            <img id="avatar" src="${uwu[1][i]}">
+            `;
           }
           // Display the tweet
           document.getElementById("res").innerHTML += `
           <h2>${tweet}</h2>`;
         } catch (error) {
-          document.getElementById("res").innerHTML += `<p>${uwu}</p>`;
+          document.getElementById("res").innerHTML += `<p>${tweet}</p>`;
         }
       });
   }

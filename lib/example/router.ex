@@ -67,6 +67,13 @@ defmodule Example.Router do
     Logger.info(tweet)
     userpfp = fn user -> getUserpfp(user).body |> Jason.decode!() end
 
+    winner = [
+      tweet,
+      userName,
+      userpfp.(userName)["data"]["profile_image_url"],
+      userpfp.(userName)["data"]["name"]
+    ]
+
     users_profile_picture = [
       userpfp.(params["u"])["data"]["profile_image_url"],
       userpfp.(params["u2"])["data"]["profile_image_url"],
@@ -76,7 +83,7 @@ defmodule Example.Router do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Jason.encode!([tweet, userName, users_profile_picture]))
+    |> send_resp(200, Jason.encode!([winner, users_profile_picture]))
   end
 
   @impl Plug.ErrorHandler

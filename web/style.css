@@ -1,14 +1,15 @@
 @import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/cascadia-code.min.css");
 body {
   background-color: #657786;
-}
-
-h1,
-p {
-  color: white;
   font-family: "Cascadia Code", sans-serif;
 }
 
+#avatar {
+  border-radius: 50%;
+}
+#namet {
+  font-weight: bold;
+}
 p {
   width: auto;
   padding: 30px;
@@ -18,11 +19,88 @@ p {
 }
 
 h2 {
-  color: white;
+  color: black;
   font-family: "Cascadia Code", sans-serif;
   font-size: 20px;
 }
 
 img {
-  border-radius: 50%;
+  max-width: 100%;
+}
+
+.avator {
+  border-radius: 100px;
+  width: 48px;
+  margin-right: 15px;
+}
+
+.tweet-wrap {
+  max-width: 490px;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 3px;
+  padding: 30px;
+  border-bottom: 1px solid #e6ecf0;
+  border-top: 1px solid #e6ecf0;
+}
+
+.tweet-header {
+  display: flex;
+  align-items: flex-start;
+  font-size: 14px;
+}
+.tweet-header-info {
+  font-weight: bold;
+}
+.tweet-header-info span {
+  color: #657786;
+  font-weight: normal;
+  margin-left: 5px;
+}
+.tweet-header-info p {
+  font-weight: normal;
+  margin-top: 5px;
+}
+.tweet-img-wrap {
+  padding-left: 60px;
+}
+
+.tweet-info-counts {
+  display: flex;
+  margin-left: 60px;
+  margin-top: 10px;
+}
+.tweet-info-counts div {
+  display: flex;
+  margin-right: 20px;
+}
+.tweet-info-counts div svg {
+  color: #657786;
+  margin-right: 10px;
+}
+@media screen and (max-width: 430px) {
+  body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .tweet-header {
+    flex-direction: column;
+  }
+  .tweet-header img {
+    margin-bottom: 20px;
+  }
+  .tweet-header-info p {
+    margin-bottom: 30px;
+  }
+  .tweet-img-wrap {
+    padding-left: 0;
+  }
+  .tweet-info-counts {
+    display: flex;
+    margin-left: 0;
+  }
+  .tweet-info-counts div {
+    margin-right: 10px;
+  }
 }
