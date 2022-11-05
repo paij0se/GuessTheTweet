@@ -29,6 +29,7 @@ function sendAndReceive() {
       .then((uwu) => {
         let tweet = uwu[0][0];
         let userWinnerPfp = uwu[0][2];
+        console.log(uwu);
         try {
           const winner = uwu[0][1];
           let winningButton;
@@ -39,7 +40,8 @@ function sendAndReceive() {
               document.querySelector("body").appendChild(buton);
               buton.type = "button";
               buton.className = "btn btn-success btn-lg btn-block";
-              buton.style = "border: 2px solid black; border-radius: 20px;";
+              buton.style =
+                "border: 2px solid black; border-radius: 20px; margin: auto;";
               buton.innerText = winner;
               document.getElementById("usert").innerHTML = `@${uwu[0][1]}`;
               document.getElementById("pfpw").src = userWinnerPfp;
@@ -50,7 +52,7 @@ function sendAndReceive() {
             const buton = document.createElement("button");
             document.querySelector("body").appendChild(buton);
             buton.type = "button";
-            buton.className = "btn btn-outline-dark btn-lg btn-block";
+            buton.className = "btn btn btn-secondary btn-lg btn-block";
             buton.id = i;
             buton.style = "border: 2px solid black; border-radius: 20px;";
             buton.innerText = `@${optionUserArray[i]}`;
