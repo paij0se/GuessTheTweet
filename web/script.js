@@ -29,7 +29,6 @@ function sendAndReceive() {
       .then((uwu) => {
         let tweet = uwu[0][0];
         let userWinnerPfp = uwu[0][2];
-        console.log(uwu);
         try {
           const winner = uwu[0][1];
           let winningButton;
