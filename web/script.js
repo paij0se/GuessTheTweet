@@ -18,7 +18,7 @@ function sendAndReceive() {
       localStorage.setItem(`user${i}`, optionUserArray[i]);
     }
     fetch(
-      `http://127.0.0.1:8080/tweets/?u=${tusername}&u2=${tusername2}&u3=${tusername3}&u4=${tusername4}`,
+      `https://guessthetweet.herokuapp.com/tweets/?u=${tusername}&u2=${tusername2}&u3=${tusername3}&u4=${tusername4}`,
       {
         method: "GET",
       }
